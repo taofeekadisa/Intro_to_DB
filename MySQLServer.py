@@ -19,38 +19,35 @@ handle open and close of the DB in your script.
 
 
 import mysql.connector
-from mysql.connector import errorcode
-from dotenv import load_dotenv
-import os
-
+from mysql.connector import Error
 from dotenv import dotenv_values
 
+# Load credentials
 config = dotenv_values(".env")
 
-# cnx = mysql.connector.connect(user=config.get('USER'), 
-#                               password=config.get('PASSWORD'),
-#                               host=config.get('HOST'),
-#                               )
-
-# cursor = cnx.cursor()
-
-
 try:
-    cnx = mysql.connector.connect(user=config.get('USER'), 
-                              password=config.get('PASSWORD'),
-                              host=config.get('HOST'),
-                              )
-    if cnx.is_connected():
-        cursor = cnx.cursor()
+    connection = mysql.connector.connect(
+        host=config.get('HOST'),
+        user=config.get('USER'),
+        password=config.get('PASSWORD')
+    )
+
+    if connection.is_connected():
+        cursor = connection.cursor()
         cursor.execute("CREATE DATABASE IF NOT EXISTS alx_book_store")
-        print(" Database alx_book_store created successfully!")
+        print("Database 'alx_book_store' created successfully!")
+
 except mysql.connector.Error as err:
     print("Failed creating database: {}".format(err))
+
 finally:
     if 'cursor' in locals():
         cursor.close()
-    if 'cnx' in locals() and cnx.is_connected():
-        cnx.close()
+    if 'connection' in locals() and connection.is_connected():
+        connection.close()
+
+
+
 
 
 
