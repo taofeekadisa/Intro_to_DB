@@ -46,6 +46,8 @@ def create_database():
         cursor.close()
         cnx.close()
 
+create_database()
+
 # def connect_database():
 #     try:
 #         if cnx.is_connected():
@@ -73,6 +75,6 @@ def create_database():
 #     # connect_database()
 #     close_connection()
 
-if __name__ == "__main__":
-    create_database()
+# if __name__ == "__main__":
+#     create_database()
 
