@@ -76,6 +76,16 @@ CREATE TABLE Orders (
   FOREIGN KEY (customer_id) REFERENCES Customers (customer_id)
 );
 
+CREATE TABLE Order_Details (
+
+  orderdetailid INT NOT NULL,
+  order_id INT,
+  book_id INT,
+  quantity DOUBLE,
+  PRIMARY KEY (orderdetailid),
+  FOREIGN KEY (order_id) REFERENCES Orders (order_id),
+  FOREIGN KEY (book_id) REFERENCES Books (book_id)
+);
 
 
 
