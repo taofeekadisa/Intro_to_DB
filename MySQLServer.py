@@ -23,61 +23,60 @@ from mysql.connector import Error
 from dotenv import dotenv_values
 import os
 
-# Load credentials
-config = dotenv_values(".env")
+# # Load credentials
+# config = dotenv_values(".env")
 
-try:
-    connection = mysql.connector.connect(
-        host=os.getenv('HOST'),
-        user=os.getenv('USER'),
-        password=os.getenv('PASSWORD')
-    )
+# try:
+#     connection = mysql.connector.connect(
+#         host=os.getenv('HOST'),
+#         user=os.getenv('USER'),
+#         password=os.getenv('PASSWORD')
+#     )
 
-    if connection.is_connected():
-        cursor = connection.cursor()
-        cursor.execute("CREATE DATABASE IF NOT EXISTS alx_book_store")
-        print("Database 'alx_book_store' created successfully!")
-        cursor.close()
+#     if connection.is_connected():
+#         cursor = connection.cursor()
+#         cursor.execute("CREATE DATABASE IF NOT EXISTS alx_book_store")
+#         print("Database 'alx_book_store' created successfully!")
+#         cursor.close()
 
-except mysql.connector.Error as err:
-    print("Failed creating database: {}".format(err))
+# except mysql.connector.Error as err:
+#     print("Failed creating database: {}".format(err))
 
-finally:
-    if connection.is_connected():
-        connection.close()
-
-
+# finally:
+#     if connection.is_connected():
+#         connection.close()
 
 
 
 
-# def connect_database():
-#     try:
-#         if cnx.is_connected():
-#             cursor = cnx.cursor()    
-#             cursor.execute("USE alx_book_store")
-#             print("Database alx_book_store connected successfully.")
-#     except mysql.connector.Error as err:
-#         print("Failed connecting to  database: {}".format(err))
-#         exit(1)
-        # print("Database alx_book_store does not exists.")
-        # if err.errno == errorcode.ER_BAD_DB_ERROR:
-        #     create_database(cursor, 'alx_book_store')
-        #     print("Database alx_book_store created successfully.")
-        #     cnx.database = 'alx_book_store'
-        # else:
-        #     print(err)
-        #     exit(1)
 
-# def close_connection():
-#     cursor.close()
-#     cnx.close()
+def create_database():
+    try:
+        # Connect to MySQL server (replace with your credentials)
+        mydb = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="password",
+            port="3306"
+        )
 
-# def main():
-#     create_database()
-#     # connect_database()
-#     close_connection()
+        if mydb.is_connected():
+            cursor = mydb.cursor()
+            
+            # Attempt to create the database using IF NOT EXISTS
+            cursor.execute("CREATE DATABASE IF NOT EXISTS alx_book_store")
+            print("Database 'alx_book_store' created successfully or already exists.")
+            
+            # Close the cursor
+            cursor.close()
 
-# if __name__ == "__main__":
-#     create_database()
+    except mysql.connector.Error as e:
+        print(f"Error: {e}")
+    finally:
+        if mydb.is_connected():
+            mydb.close()
+            print("MySQL connection closed.")
+
+if __name__ == "__main__":
+    create_database()
 
