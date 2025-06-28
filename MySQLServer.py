@@ -48,15 +48,15 @@ def create_database():
         print("Failed creating database: {}".format(err))
         exit(1)
 
-def connect_database():
-    try:
-        if cnx.is_connected():
-            cursor = cnx.cursor()    
-            cursor.execute("USE alx_book_store")
-            print("Database alx_book_store connected successfully.")
-    except mysql.connector.Error as err:
-        print("Failed connecting to  database: {}".format(err))
-        exit(1)
+# def connect_database():
+#     try:
+#         if cnx.is_connected():
+#             cursor = cnx.cursor()    
+#             cursor.execute("USE alx_book_store")
+#             print("Database alx_book_store connected successfully.")
+#     except mysql.connector.Error as err:
+#         print("Failed connecting to  database: {}".format(err))
+#         exit(1)
         # print("Database alx_book_store does not exists.")
         # if err.errno == errorcode.ER_BAD_DB_ERROR:
         #     create_database(cursor, 'alx_book_store')
@@ -72,7 +72,7 @@ def close_connection(cnx, cursor):
 
 def main():
     create_database()
-    connect_database()
+    # connect_database()
     close_connection()
 
 if __name__ == "__main__":
