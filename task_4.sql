@@ -11,8 +11,6 @@ All SQL keywords should be in uppercase
 
 """
 
-USE your_database_name;
-
 
 SELECT 
     COLUMN_NAME AS 'Column Name',
