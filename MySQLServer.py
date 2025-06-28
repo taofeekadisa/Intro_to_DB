@@ -9,8 +9,7 @@ If the database alx_book_store already exists, your script should not fail
 You are not allowed to use the SELECT or SHOW statements
 NOTE :
 
-Required to print message such as Database 'alx_book_store' created successfully!
-when database is successfully created.
+Required to print message such as Database 'alx_book_store' created successfully! when database is successfully created.
 
 Print error message to handle errors when failing to connect to the DB.
 
@@ -28,7 +27,7 @@ from dotenv import dotenv_values
 
 config = dotenv_values(".env")
 
-cnx = mysql.connector.connect(user=config.get('USER'),
+cnx = mysql.connector.connect(user=config.get('USER'), 
                               password=config.get('PASSWORD'),
                               host=config.get('HOST'),
                               )
@@ -36,10 +35,37 @@ cnx = mysql.connector.connect(user=config.get('USER'),
 cursor = cnx.cursor()
 
 
-try:
-    cursor.execute(
-        "CREATE DATABASE IF NOT EXISTS alx_book_store")
-except mysql.connector.Error as err:
+
+def create_database(cursor):
+    try:
+        cursor.execute(
+            "CREATE DATABASE IF NOT EXISTS alx_book_store")
+    except mysql.connector.Error as err:
         print("Failed creating database: {}".format(err))
         exit(1)
+
+def connect_database():
+    try:
+        cursor.execute("USE alx_book_store")
+        print("Database alx_book_store connected successfully.")
+    except mysql.connector.Error as err:
+        print("Database alx_book_store does not exists.")
+        if err.errno == errorcode.ER_BAD_DB_ERROR:
+            create_database(cursor, 'alx_book_store')
+            print("Database alx_book_store created successfully.")
+            cnx.database = 'alx_book_store'
+        else:
+            print(err)
+            exit(1)
+
+def close_connection(cnx, cursor):
+    cursor.close()
+    cnx.close()
+
+def main():
+    create_database(cursor)
+    close_connection(cnx, cursor)
+
+if __name__ == "__main__":
+    main()
 
