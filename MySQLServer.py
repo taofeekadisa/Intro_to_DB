@@ -32,39 +32,48 @@ cnx = mysql.connector.connect(user=config.get('USER'),
                               host=config.get('HOST'),
                               )
 
-cursor = cnx.cursor()
+cnx = mysql.connector.connect(user=config.get('USER'), 
+                              password=config.get('PASSWORD'),
+                              host=config.get('HOST'),
+                              )
 
 
-
-def create_database(cursor):
+def create_database():
     try:
-        cursor.execute(
-            "CREATE DATABASE IF NOT EXISTS alx_book_store")
+        if cnx.is_connected():
+            cursor = cnx.cursor()
+            cursor.execute("CREATE DATABASE IF NOT EXISTS alx_book_store")
+            print("Database alx_book_store created successfully.")
     except mysql.connector.Error as err:
         print("Failed creating database: {}".format(err))
         exit(1)
 
 def connect_database():
     try:
-        cursor.execute("USE alx_book_store")
-        print("Database alx_book_store connected successfully.")
+        if cnx.is_connected():
+            cursor = cnx.cursor()    
+            cursor.execute("USE alx_book_store")
+            print("Database alx_book_store connected successfully.")
     except mysql.connector.Error as err:
-        print("Database alx_book_store does not exists.")
-        if err.errno == errorcode.ER_BAD_DB_ERROR:
-            create_database(cursor, 'alx_book_store')
-            print("Database alx_book_store created successfully.")
-            cnx.database = 'alx_book_store'
-        else:
-            print(err)
-            exit(1)
+        print("Failed connecting to  database: {}".format(err))
+        exit(1)
+        # print("Database alx_book_store does not exists.")
+        # if err.errno == errorcode.ER_BAD_DB_ERROR:
+        #     create_database(cursor, 'alx_book_store')
+        #     print("Database alx_book_store created successfully.")
+        #     cnx.database = 'alx_book_store'
+        # else:
+        #     print(err)
+        #     exit(1)
 
 def close_connection(cnx, cursor):
     cursor.close()
     cnx.close()
 
 def main():
-    create_database(cursor)
-    close_connection(cnx, cursor)
+    create_database()
+    connect_database()
+    close_connection()
 
 if __name__ == "__main__":
     main()
