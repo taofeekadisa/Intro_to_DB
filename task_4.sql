@@ -13,6 +13,7 @@ All SQL keywords should be in uppercase
 
 
 SELECT 
+    TABLE_NAME
     COLUMN_NAME,
     COLUMN_TYPE,
     IS_NULLABLE,
