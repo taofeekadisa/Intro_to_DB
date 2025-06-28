@@ -9,5 +9,5 @@ The database name will be passed as argument of mysql command
 
 """
 
-USE @database_name;
+USE alx_book_store;;
 SHOW TABLES;
