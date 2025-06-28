@@ -32,17 +32,19 @@ cnx = mysql.connector.connect(user=config.get('USER'),
                               host=config.get('HOST'),
                               )
 
-
+cursor = cnx.cursor()
 
 def create_database():
     try:
         if cnx.is_connected():
-            cursor = cnx.cursor()
             cursor.execute("CREATE DATABASE IF NOT EXISTS alx_book_store")
             print(" Database alx_book_store created successfully!")
     except mysql.connector.Error as err:
         print("Failed creating database: {}".format(err))
         exit(1)
+    finally:
+        cursor.close()
+        cnx.close()
 
 # def connect_database():
 #     try:
@@ -62,16 +64,15 @@ def create_database():
         #     print(err)
         #     exit(1)
 
-def close_connection():
-    cursor = cnx.cursor()
-    cursor.close()
-    cnx.close()
+# def close_connection():
+#     cursor.close()
+#     cnx.close()
 
-def main():
-    create_database()
-    # connect_database()
-    close_connection()
+# def main():
+#     create_database()
+#     # connect_database()
+#     close_connection()
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
 
