@@ -32,10 +32,6 @@ cnx = mysql.connector.connect(user=config.get('USER'),
                               host=config.get('HOST'),
                               )
 
-cnx = mysql.connector.connect(user=config.get('USER'), 
-                              password=config.get('PASSWORD'),
-                              host=config.get('HOST'),
-                              )
 
 
 def create_database():
@@ -66,7 +62,8 @@ def create_database():
         #     print(err)
         #     exit(1)
 
-def close_connection(cnx, cursor):
+def close_connection():
+    cursor = cnx.cursor()
     cursor.close()
     cnx.close()
 
