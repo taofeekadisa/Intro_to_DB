@@ -21,15 +21,16 @@ handle open and close of the DB in your script.
 import mysql.connector
 from mysql.connector import Error
 from dotenv import dotenv_values
+import os
 
 # Load credentials
 config = dotenv_values(".env")
 
 try:
     connection = mysql.connector.connect(
-        host=config.get('HOST'),
-        user=config.get('USER'),
-        password=config.get('PASSWORD')
+        host=os.getenv('HOST'),
+        user=os.getenv('USER'),
+        password=os.getenv('PASSWORD')
     )
 
     if connection.is_connected():
