@@ -12,13 +12,15 @@ All SQL keywords should be in uppercase
 """
 
 
+
+
 SELECT 
-    COLUMN_NAME AS 'Column Name',
-    COLUMN_TYPE AS 'Column Type',
-    IS_NULLABLE AS 'Nullable',
-    COLUMN_KEY AS 'Key',
-    COLUMN_DEFAULT AS 'Default Value',
-    EXTRA AS 'Extra Information'
+    COLUMN_NAME,
+    COLUMN_TYPE,
+    IS_NULLABLE,
+    COLUMN_KEY,
+    COLUMN_DEFAULT ,
+    EXTRA
 FROM 
     INFORMATION_SCHEMA.COLUMNS
 WHERE 
