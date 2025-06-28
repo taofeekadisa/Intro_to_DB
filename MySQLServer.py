@@ -34,19 +34,19 @@ cnx = mysql.connector.connect(user=config.get('USER'),
 
 cursor = cnx.cursor()
 
-def create_database():
-    try:
-        if cnx.is_connected():
-            cursor.execute("CREATE DATABASE IF NOT EXISTS alx_book_store")
-            print(" Database alx_book_store created successfully!")
-    except mysql.connector.Error as err:
-        print("Failed creating database: {}".format(err))
-        exit(1)
-    finally:
-        cursor.close()
-        cnx.close()
 
-create_database()
+try:
+    if cnx.is_connected():
+        cursor.execute("CREATE DATABASE IF NOT EXISTS alx_book_store")
+        print(" Database alx_book_store created successfully!")
+except mysql.connector.Error as err:
+    print("Failed creating database: {}".format(err))
+    exit(1)
+finally:
+    cursor.close()
+    cnx.close()
+
+
 
 # def connect_database():
 #     try:
