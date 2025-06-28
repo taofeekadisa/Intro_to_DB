@@ -42,8 +42,10 @@ try:
 except mysql.connector.Error as err:
     print("Failed creating database: {}".format(err))
 finally:
-    cursor.close()
-    cnx.close()
+    if 'cursor' in locals():
+        cursor.close()
+    if 'cnx' in locals() and cnx.is_connected():
+        cnx.close()
 
 
 
