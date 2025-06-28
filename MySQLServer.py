@@ -41,7 +41,6 @@ try:
         print(" Database alx_book_store created successfully!")
 except mysql.connector.Error as err:
     print("Failed creating database: {}".format(err))
-    exit(1)
 finally:
     cursor.close()
     cnx.close()
