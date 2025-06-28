@@ -73,6 +73,6 @@ def create_database():
 #     # connect_database()
 #     close_connection()
 
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    create_database()
 
