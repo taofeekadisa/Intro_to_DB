@@ -9,7 +9,7 @@ If the database alx_book_store already exists, your script should not fail
 You are not allowed to use the SELECT or SHOW statements
 NOTE :
 
-Required to print message such as Database 'alx_book_store' created successfully! 
+Required to print message such as Database 'alx_book_store' created successfully!
 when database is successfully created.
 
 Print error message to handle errors when failing to connect to the DB.
@@ -28,36 +28,31 @@ from dotenv import dotenv_values
 
 config = dotenv_values(".env")
 
-cnx = mysql.connector.connect(user=config.get('USER'), 
+cnx = mysql.connector.connect(user=config.get('USER'),
                               password=config.get('PASSWORD'),
                               host=config.get('HOST'),
                               )
 
 cursor = cnx.cursor()
 
+DB_NAME = 'alx_book_store'
 
-def create_database(cursor, DB_NAME):
-    try:
-        cursor.execute(
-            "CREATE DATABASE IF NOT EXISTS {}".format(DB_NAME))
-    except mysql.connector.Error as err:
+try:
+    cursor.execute(
+        "CREATE DATABASE IF NOT EXISTS {}".format(DB_NAME))
+except mysql.connector.Error as err:
         print("Failed creating database: {}".format(err))
         exit(1)
 
-def connect_database(DB_NAME):
-    try:
-        cursor.execute("USE {}".format(DB_NAME))
-        print("Database {} connected successfully.".format(DB_NAME))
-    except mysql.connector.Error as err:
-        print("Database {} does not exists.".format(DB_NAME))
-        if err.errno == errorcode.ER_BAD_DB_ERROR:
-            create_database(cursor, DB_NAME)
-            print("Database {} created successfully.".format(DB_NAME))
-            cnx.database = DB_NAME
-        else:
-            print(err)
-            exit(1)
-
-connect_database('alx_book_store')
-
-# connect_database('sql7786786')
+try:
+    cursor.execute("USE {}".format(DB_NAME))
+    print("Database {} connected successfully.".format(DB_NAME))
+except mysql.connector.Error as err:
+    print("Database {} does not exists.".format(DB_NAME))
+    if err.errno == errorcode.ER_BAD_DB_ERROR:
+        create_database(cursor, DB_NAME)
+        print("Database {} created successfully.".format(DB_NAME))
+        cnx.database = DB_NAME
+    else:
+        print(err)
+        exit(1)
