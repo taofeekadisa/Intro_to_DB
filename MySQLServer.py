@@ -27,16 +27,21 @@ from dotenv import dotenv_values
 
 config = dotenv_values(".env")
 
-cnx = mysql.connector.connect(user=config.get('USER'), 
-                              password=config.get('PASSWORD'),
-                              host=config.get('HOST'),
-                              )
+# cnx = mysql.connector.connect(user=config.get('USER'), 
+#                               password=config.get('PASSWORD'),
+#                               host=config.get('HOST'),
+#                               )
 
-cursor = cnx.cursor()
+# cursor = cnx.cursor()
 
 
 try:
+    cnx = mysql.connector.connect(user=config.get('USER'), 
+                              password=config.get('PASSWORD'),
+                              host=config.get('HOST'),
+                              )
     if cnx.is_connected():
+        cursor = cnx.cursor()
         cursor.execute("CREATE DATABASE IF NOT EXISTS alx_book_store")
         print(" Database alx_book_store created successfully!")
 except mysql.connector.Error as err:
