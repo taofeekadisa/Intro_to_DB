@@ -20,6 +20,6 @@ SELECT
 FROM 
     INFORMATION_SCHEMA.COLUMNS
 WHERE 
-    TABLE_SCHEMA = @database_name;
+    TABLE_SCHEMA = 'alx_book_store' 
     AND TABLE_NAME = 'Books';
 
