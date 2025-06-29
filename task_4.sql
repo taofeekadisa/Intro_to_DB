@@ -10,7 +10,6 @@ The name of the file should be task_4.sql
 All SQL keywords should be in uppercase
 
 """
-USE your_database_name;
 
 SELECT 
     TABLE_NAME,
